@@ -7,7 +7,7 @@ namespace WebApplication1.Models
     {
         public string Nombre { get; set; } = null!;
         public int DocumentoPer { get; set; }
-        public int DocumentoInqui { get; set; }
+        public int documentoInqui { get; set; }
         public string Edad { get; set; } = null!;
     }
 }

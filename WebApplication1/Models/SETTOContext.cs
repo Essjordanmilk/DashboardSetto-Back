@@ -26,6 +26,7 @@ namespace WebApplication1.Models
         public virtual DbSet<Solicitude> Solicitudes { get; set; } = null!;
         public virtual DbSet<Vehiculo> Vehiculos { get; set; } = null!;
         public virtual DbSet<Visitante> Visitantes { get; set; } = null!;
+        public object Perfile { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -162,7 +163,7 @@ namespace WebApplication1.Models
                     .ValueGeneratedNever()
                     .HasColumnName("documentoPer");
 
-                entity.Property(e => e.DocumentoInqui).HasColumnName("documentoInqui");
+                entity.Property(e => e.documentoInqui).HasColumnName("documentoInqui");
 
                 entity.Property(e => e.Edad)
                     .HasMaxLength(3)

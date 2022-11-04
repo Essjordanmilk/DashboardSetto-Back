@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using WebApplication1.ModelsView;
 
 namespace WebApplication1.Controllers
 {
@@ -19,16 +15,31 @@ namespace WebApplication1.Controllers
         {
             _context = context;
         }
-
         // GET: api/Perfiles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Perfile>>> GetPerfiles()
         {
-          if (_context.Perfiles == null)
-          {
-              return NotFound();
-          }
+            if (_context.Perfiles == null)
+            {
+                return NotFound();
+            }
             return await _context.Perfiles.ToListAsync();
+        }
+
+        // GET
+        [HttpGet("/api/login/{person}/{inqui}")]
+        public async Task<ActionResult<IEnumerable<LogInView>>> GetLogIn(int person, int inqui)
+        {
+            var query = (from pe in _context.Perfiles
+                         where pe.DocumentoPer == person && pe.documentoInqui == inqui
+                         select new LogInView
+                         {
+                             Nombre = pe.Nombre,
+                             DocumentoPer = person,
+                             DocumentoInqui = inqui,
+                             Edad = pe.Edad
+                         }).ToArrayAsync();
+            return await query;
         }
 
         // GET: api/Perfiles/5
